@@ -18,6 +18,7 @@ public class encrypt {
         keyGenerator.init(Key);
         SecretKey encryptionKey = keyGenerator.generateKey();
         return encryptionKey;
-        
+       
     }
+    public
 }
