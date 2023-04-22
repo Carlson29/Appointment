@@ -7,7 +7,8 @@ package shutup.softwaresecurityca;
 import java.security.NoSuchAlgorithmException;
 import javax.crypto.BadPaddingException;
 import javax.crypto.SecretKey;
-import static shutup.softwaresecurityca.decrypt.decrypt2;
+import static shutup.softwaresecurityca.decrypt.decryptGivenKey;
+//import static shutup.softwaresecurityca.decrypt.decrypt2;
 import static shutup.softwaresecurityca.encrypt.encrypt;
 import static shutup.softwaresecurityca.encrypt.encryptWithKey;
 import static shutup.softwaresecurityca.encrypt.generateKey1;
@@ -25,7 +26,7 @@ public class AesEncryptionMethodTesting {
         int keySize = 256; //used to define key Size for generating a key method. possible key sizes are 128, 192, and 256 bits.
         String message = "this is a secret ";
         String message2 = "test key";
-        String key = "0123456789abcdef";
+        String key = "0123456789abcdef0123456789abcdef";
 
         SecretKey secretKey = generateKey1(keySize);
 
@@ -39,7 +40,7 @@ public class AesEncryptionMethodTesting {
         System.out.println("/////");
 
         byte[] encrypted2 = encrypt(message2, secretKey);
-        System.out.println("Encrypted message: " + new String(encrypted2));
+        System.out.println("Encrypted message TEST LOL: " + new String(encrypted2));
 
         System.out.println("/////");
 
@@ -53,7 +54,7 @@ public class AesEncryptionMethodTesting {
           
           
           
-          String decrypted = decrypt2(encrypted2, secretKey) ;
+          String decrypted = decryptGivenKey(encrypted, key) ;
         System.out.println("Decrypted message: " + decrypted);
           
 
