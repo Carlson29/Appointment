@@ -19,18 +19,18 @@ public class Patients {
 //• The date of birth of the Patient (a LocalDate)
 //• The date they joined the practice (a LocalDate)
 //• The appointments associated with the Patient (an Appointment LinkedList).
-//Two Patients are considered equal where they have the same first name, second name and date of birth (irrespective of the rest
+//Two Appointment are considered equal where they have the same first name, second name and date of birth (irrespective of the rest
 //of their fields
-//    HashMap – this should hold Patients and should employ list-based chaining or linear probing as its collision resolution. It
+//    HashMap – this should hold Appointment and should employ list-based chaining or linear probing as its collision resolution. It
 //must include all standard components of a HashMap structure (as outlined in class). 
     private String firstName;
     private String secondName;
     private Date dateOfBirth;
     private Date startDate;
     private int size;
-    private Patient[] data;
+    private Appointments[] data;
 
-//    1. A method called size() that takes no parameters & returns the number of Patients currently
+//    1. A method called size() that takes no parameters & returns the number of Appointment currently
     //stored in your Map.
     public int size() {
         return size;
@@ -60,15 +60,15 @@ public class Patients {
 //		and return that as the old value
     
     
-    private Patient growMap(){
-        Patient[] newMap = new Patient[data.length*2];
+    private Appointments[] growMap(){
+        Appointments[] newMap = new Appointments[data.length*2];
         for (int i = 0; i < data.length; i++) {
             String key = data[i].key;
             int slot = hashFunction(key);
             if(newMap[slot] != null){
                 throw new MapFullException("Cannot complete resize operation");
             }
-            newMap[slot]==data[i];
+           newMap[slot]=data[i];
         }
         return newMap;
     }
@@ -78,15 +78,16 @@ public class Patients {
             throw new IllegalArgumentException("Null fields not permitted");
         }
         if(size == data.length){
-            data = 
+            data = growMap();
         }
         if (data[slot] == null) {
-            Patient newPatient = new Patient(key, value);
+            Appointments newPatient = new Appointments(key, value);
             data[slot] = newPatient;
             size++;
             return null;
-        } else if (data[slot].key.equals(key)) {
-            {
+        } else   {
+            
+                data[slot].key.equals(key);
                 String updateOldValue = data[slot].updateValue(value);
                 return updateOldValue;
             }
@@ -97,12 +98,12 @@ public class Patients {
         }
     }
 
-    private static class Patient {
+    private static class Appointments {
 
         private final String key;
         private String value;
 
-        public Patient(String key, String value) {
+        public Appointments(String key, String value) {
             this.key = key;
             this.value = value;
         }
@@ -126,22 +127,5 @@ public class Patients {
 
         }
     }
-    public class MapFullException extends RuntimeException{
-    public MapFullException(String message){
-        super(message);
-    }
-    
-    public MapFullException(){
-        super();
-    }
-}
-    public class SlotOccupiedException extends RuntimeException{
-    public SlotOccupiedException(String message){
-        super(message);
-    }
-    
-    public SlotOccupiedException(){
-        super();
-    }
-}
-}
+   
+   
