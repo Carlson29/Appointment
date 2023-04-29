@@ -96,6 +96,39 @@ public class Patients {
 
         }
     }
+        
+//        4. A method called get() that takes a single parameter, the key mapping to the value to be retrieved.
+//The method should return a Patient - the value associated with the supplied key. If no such key is found in the
+//map, an appropriate value should be returned to indicate this
+//	
+//	
+//	
+//get() paremeter is key
+//	slot is hashcode of key
+//	if the slot is not empty 
+//		return the value of the key in that slot
+//	if the slot is empty
+//	return nothing
+
+
+
+
+public String get(String key){
+    int slot = hashFunction(key);
+    if(data[slot] != null){
+        return data[slot].value;
+    }
+    else{
+        return null;
+    }
+    
+}
+ 
+        
+        
+        
+        
+    
 
     private static class Appointments {
 
