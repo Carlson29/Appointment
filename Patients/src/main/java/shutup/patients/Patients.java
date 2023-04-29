@@ -58,26 +58,25 @@ public class Patients {
 //	if the key is already present
 //		update data[slot]  with patient  
 //		and return that as the old value
-    
-    
-    private Appointments[] growMap(){
-        Appointments[] newMap = new Appointments[data.length*2];
+    private Appointments[] growMap() {
+        Appointments[] newMap = new Appointments[data.length * 2];
         for (int i = 0; i < data.length; i++) {
             String key = data[i].key;
             int slot = hashFunction(key);
-            if(newMap[slot] != null){
+            if (newMap[slot] != null) {
                 throw new MapFullException("Cannot complete resize operation");
             }
-           newMap[slot]=data[i];
+            newMap[slot] = data[i];
         }
         return newMap;
     }
+
     public String put(String key, String value) {
         int slot = hashFunction(key);
-        if(key == null || value == null){
+        if (key == null || value == null) {
             throw new IllegalArgumentException("Null fields not permitted");
         }
-        if(size == data.length){
+        if (size == data.length) {
             data = growMap();
         }
         if (data[slot] == null) {
@@ -85,15 +84,15 @@ public class Patients {
             data[slot] = newPatient;
             size++;
             return null;
-        } else   {
-            
-                data[slot].key.equals(key);
+        } else {
+
+            if (data[slot].key.equals(key)) {
                 String updateOldValue = data[slot].updateValue(value);
                 return updateOldValue;
+
+            } else {
+                throw new SlotOccupiedException("Provided key maps to occupied slot in map.");
             }
-            else{
-                         throw new SlotOccupiedException("Provided key maps to occupied slot in map.");
-                     }
 
         }
     }
@@ -127,5 +126,4 @@ public class Patients {
 
         }
     }
-   
-   
+}
