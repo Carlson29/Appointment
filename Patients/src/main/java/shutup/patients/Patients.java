@@ -2,7 +2,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Project/Maven2/JavaApp/src/main/java/${packagePath}/${mainClassName}.java to edit this template
  */
-
 package shutup.patients;
 
 import java.util.Date;
@@ -22,38 +21,35 @@ public class Patients {
 //• The appointments associated with the Patient (an Appointment LinkedList).
 //Two Patients are considered equal where they have the same first name, second name and date of birth (irrespective of the rest
 //of their fields
-    
 //    HashMap – this should hold Patients and should employ list-based chaining or linear probing as its collision resolution. It
 //must include all standard components of a HashMap structure (as outlined in class). 
-    
     private String firstName;
     private String secondName;
     private Date dateOfBirth;
     private Date startDate;
     private int size;
-    private Patient [] data;
-    
+    private Patient[] data;
+
 //    1. A method called size() that takes no parameters & returns the number of Patients currently
     //stored in your Map.
-    public int size(){
+    public int size() {
         return size;
     }
-    
+
 //2. A method called hashFunction() that takes one parameter, the data representing the key to be used.    
 //the method should calculate the appropriate slot based on the key supplied (an int).
-     public int hashFunction(String key){
-         int slot = key.hashCode();
-         slot = Math.abs(slot);
-         slot = slot % data.length;
-         return slot;
-         
-     }
-    
+    public int hashFunction(String key) {
+        int slot = key.hashCode();
+        slot = Math.abs(slot);
+        slot = slot % data.length;
+        return slot;
+
+    }
+
 //3. A method called put() that takes two parameters, the data representing the key of the new entry and a Patient
 //representing the value of the new entry. The method should add the new pairing to the map in an appropriate
 //location. If the key is already present, the method should update the associated value and return the old
 //version. If the key is not already present in the map, the situation should be handled appropriately.
-    
 //     String put parameters key and patient, patient represents value
 //	int slot to add equals hashFunction key
 //	ifdata [slot] is empty
@@ -62,15 +58,47 @@ public class Patients {
 //	if the key is already present
 //		update data[slot]  with patient  
 //		and return that as the old value
-     
-     public String put(String key, Patient value){
-         int slot = hashFunction(key);
-         if(data[slot].)
-     }
-     
-     
-     
+    
+    
+    private Patient growMap(){
+        Patient[] newMap = new Patient[data.length*2];
+        for (int i = 0; i < data.length; i++) {
+            String key = data[i].key;
+            int slot = hashFunction(key);
+            if(newMap[slot] != null){
+                throw new MapFullException("Cannot complete resize operation");
+            }
+            newMap[slot]==data[i];
+        }
+        return newMap;
+    }
+    public String put(String key, String value) {
+        int slot = hashFunction(key);
+        if(key == null || value == null){
+            throw new IllegalArgumentException("Null fields not permitted");
+        }
+        if(size == data.length){
+            data = 
+        }
+        if (data[slot] == null) {
+            Patient newPatient = new Patient(key, value);
+            data[slot] = newPatient;
+            size++;
+            return null;
+        } else if (data[slot].key.equals(key)) {
+            {
+                String updateOldValue = data[slot].updateValue(value);
+                return updateOldValue;
+            }
+            else{
+                         throw new SlotOccupiedException("Provided key maps to occupied slot in map.");
+                     }
+
+        }
+    }
+
     private static class Patient {
+
         private final String key;
         private String value;
 
@@ -90,12 +118,30 @@ public class Patients {
         public void setValue(String value) {
             this.value = value;
         }
-        
-        public String updateValue(String newValue){
+
+        public String updateValue(String newValue) {
             String oldValue = value;
             this.value = newValue;
             return oldValue;
-        
+
+        }
     }
-    }    
+    public class MapFullException extends RuntimeException{
+    public MapFullException(String message){
+        super(message);
+    }
+    
+    public MapFullException(){
+        super();
+    }
+}
+    public class SlotOccupiedException extends RuntimeException{
+    public SlotOccupiedException(String message){
+        super(message);
+    }
+    
+    public SlotOccupiedException(){
+        super();
+    }
+}
 }
