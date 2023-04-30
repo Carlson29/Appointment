@@ -11,9 +11,9 @@ package com.mycompany.appointment;
  */
 public class AppointmentLinkedList {
 
-    private Node first;
-    private Node last;
-    private int size;
+    protected Node first;
+    protected Node last;
+    protected int size;
 
     public AppointmentLinkedList() {
         first = null;
@@ -41,9 +41,15 @@ public class AppointmentLinkedList {
 
     public boolean add(int position, Appointment appoint) {
         Node newNode = new Node(appoint);
-
+        if (position < 0 || position >= size) {
+            throw new IndexOutOfBoundsException();
+        }
         if (position == 0) {
+            newNode.next = first;
             first = newNode;
+        }
+        if (position == size - 1) {
+            last.next = newNode;
             last = newNode;
         } else {
             Node current = first;
@@ -80,6 +86,9 @@ public class AppointmentLinkedList {
     public Appointment get(int position) {
         if (position < 0 || position >= size) {
             throw new IndexOutOfBoundsException();
+        }
+        if (isEmpty() == true) {
+            return null;
         } else {
             Node current = first;
             for (int i = 0; i < position; i++) {
@@ -121,6 +130,9 @@ public class AppointmentLinkedList {
         if (position < 0 || position >= size) {
             throw new IndexOutOfBoundsException();
         }
+        if (isEmpty() == true) {
+            return null;
+        }
         if (position == 0) {
             remove = first.data;
             first = first.next;
@@ -144,10 +156,10 @@ public class AppointmentLinkedList {
 
     }
 
-    private static class Node {
+    protected static class Node {
 
-        private Appointment data;
-        private Node next;
+        protected Appointment data;
+        protected Node next;
 
         public Node(Appointment data) {
             this.data = data;
