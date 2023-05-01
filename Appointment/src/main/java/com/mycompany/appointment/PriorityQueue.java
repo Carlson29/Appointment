@@ -39,13 +39,37 @@ public class PriorityQueue extends AppointmentLinkedList {
     public Appointment dequeue() {
         return super.remove(0);
     }
-    
-    public Appointment peek(){
+
+    public Appointment peek() {
         return super.get(0);
     }
-    
-    public int count(){
+
+    public int count() {
         return super.size();
     }
 
+    @Override
+    public Appointment remove(int position) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean remove(Appointment appoint) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean add(int position, Appointment appoint) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean add(Appointment appoint) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public int size() {
+        throw new UnsupportedOperationException();
+    }
 }
