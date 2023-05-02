@@ -21,10 +21,23 @@ public class AppointmentLinkedList {
         size = 0;
     }
 
+    /**
+     * Checks if the LinkedList is empty
+     *
+     * @return Boolean, true for empty and false for not empty
+     *
+     */
     public boolean isEmpty() {
         return size == 0;
     }
 
+    /**
+     * Adds an appointment to the end of the LinkedList
+     *
+     * @param appoint, takes in an appointment as a parameter
+     * @return Boolean indicating the appointment was added
+     *
+     */
     public boolean add(Appointment appoint) {
         Node newNode = new Node(appoint);
 
@@ -64,10 +77,24 @@ public class AppointmentLinkedList {
         return true;
     }
 
+    /**
+     * Returns the number of appointments in the LinkedList
+     *
+     * @return int, the method returns an int
+     *
+     */
     public int size() {
         return size;
     }
 
+    /**
+     * Gets the first instance of an appointment in the LinkedList
+     *
+     * @param appoint, takes in an appointment as a parameter
+     * @return int, method returns an int or returns -1 if the appointment is
+     * not in the LinkedList
+     *
+     */
     public int indexOf(Appointment appoint) {
         if (isEmpty() == true) {
             return -1;
@@ -83,6 +110,15 @@ public class AppointmentLinkedList {
         return -1;
     }
 
+    /**
+     * Gets an appointment at a given position
+     *
+     * @return Appointment,
+     * @param position, takes in an int as a parameter
+     * @throws IndexOutOfBoundsException, if the position it less than 0 or
+     * greater than or equal to size
+     *
+     */
     public Appointment get(int position) {
         if (position < 0 || position >= size) {
             throw new IndexOutOfBoundsException();
@@ -125,6 +161,16 @@ public class AppointmentLinkedList {
         return false;
     }
 
+    /**
+     * Removes an appointment from a particular position
+     *
+     * @param position, takes in an int
+     * @return Appointment, returns the appointment in that position
+     * @throws IndexOutOfBoundsException if the position is less than 0 or
+     * greater than or equal to size
+     *
+     *
+     */
     public Appointment remove(int position) {
         Appointment remove = null;
         if (position < 0 || position >= size) {
@@ -145,7 +191,7 @@ public class AppointmentLinkedList {
                 prev = current;
                 current = current.next;
             }
-            if (current.data.equals(last.data)) {
+            if (position == size - 1) {
                 last = prev;
             }
 
