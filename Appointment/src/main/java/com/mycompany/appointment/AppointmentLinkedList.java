@@ -54,21 +54,24 @@ public class AppointmentLinkedList {
 
     public boolean add(int position, Appointment appoint) {
         Node newNode = new Node(appoint);
-        if (position < 0 || position >= size) {
-            throw new IndexOutOfBoundsException();
-        }
+
         if (position == 0) {
             newNode.next = first;
             first = newNode;
+            size++;
+            return true;
         }
-        if (position == size - 1) {
-            last.next = newNode;
-            last = newNode;
+
+        if (position < 0 || position >= size) {
+            throw new IndexOutOfBoundsException();
         } else {
             Node current = first;
 
             for (int i = 0; i < position; i++) {
                 current = current.next;
+            }
+            if (position == size - 1) {
+                last = newNode;
             }
             newNode.next = current.next;
             current.next = newNode;
@@ -99,7 +102,7 @@ public class AppointmentLinkedList {
         if (isEmpty() == true) {
             return -1;
         } else {
-            Node current = new Node(appoint);
+            Node current = first;
             for (int i = 0; i < size; i++) {
                 if (current.data.equals(appoint)) {
                     return i;
@@ -122,9 +125,6 @@ public class AppointmentLinkedList {
     public Appointment get(int position) {
         if (position < 0 || position >= size) {
             throw new IndexOutOfBoundsException();
-        }
-        if (isEmpty() == true) {
-            return null;
         } else {
             Node current = first;
             for (int i = 0; i < position; i++) {
@@ -132,33 +132,6 @@ public class AppointmentLinkedList {
             }
             return current.data;
         }
-    }
-
-    public boolean remove(Appointment appoint) {
-        if (isEmpty() == true) {
-            return false;
-        }
-        if (first.data.equals(appoint)) {
-            first = first.next;
-            size--;
-            return true;
-        } else {
-            Node current = first.next;
-            Node prev = first;
-            while (current.next != null) {
-                if (current.data.equals(appoint)) {
-                    prev.next = current.next;
-                    size--;
-                    if (current.data.equals(last.data)) {
-                        last = prev;
-                    }
-                    return true;
-                }
-                prev = current;
-                current = current.next;
-            }
-        }
-        return false;
     }
 
     /**
@@ -175,9 +148,6 @@ public class AppointmentLinkedList {
         Appointment remove = null;
         if (position < 0 || position >= size) {
             throw new IndexOutOfBoundsException();
-        }
-        if (isEmpty() == true) {
-            return null;
         }
         if (position == 0) {
             remove = first.data;
