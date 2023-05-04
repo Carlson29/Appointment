@@ -139,7 +139,7 @@ public class PatientsHashMap {
         if (data[slot] != null) {
 
             Entry current = data[slot].getFirst();
-            for (int i = 0; i < data[slot].size(); i++) {
+            for (int i = 0; i < data[slot].size()-1; i++) {
 
                 if (current.getKey().equals(key)) {
 
@@ -150,6 +150,13 @@ public class PatientsHashMap {
                 }
                 current = data[slot].get(i + 1);
             }
+             if (current.getKey().equals(key)) {
+
+                    remove = data[slot].remove(data[slot].size()-1).value;
+
+                    size--;
+                    return remove;
+                }
 
             return null;
 
