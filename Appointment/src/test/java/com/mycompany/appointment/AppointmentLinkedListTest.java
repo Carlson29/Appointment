@@ -1,11 +1,13 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/UnitTests/JUnit5TestClass.java to edit this template
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
  */
 package com.mycompany.appointment;
 
 import java.time.LocalDate;
 import java.time.Month;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -457,7 +459,7 @@ public class AppointmentLinkedListTest {
         instance.add(a1);
         instance.add(a2);
         instance.add(a3);
-        Appointment result = instance.remove(instance.size()-1);
+        Appointment result = instance.remove(instance.size() - 1);
         assertEquals(a3, result);
 
     }
