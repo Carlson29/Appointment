@@ -124,7 +124,27 @@ public String get(String key){
     
 }
  
-        
+//   5. A method called remove() that takes one parameter – the key of the pairing to be removed.
+//The method should return the value that has been removed. If no such key is found in the map, an appropriate
+//value should be returned to indicate this.
+//
+//remove () parameter is key
+//	int slot that is the hashcode of key
+//		if the slot is not empty
+//			return the value then remove
+//		if the slot is empty
+//			return null
+     
+
+public String remove(String key){
+    
+    int slot = hashFunction(key);
+   if(data[slot]!= null){
+       
+       
+    }
+    
+}
         
         
         
