@@ -35,7 +35,7 @@ public class PriorityQueue extends AppointmentLinkedList {
             Node current = super.first.next;
             Node prev = super.first;
             Node newNode = new Node(appoint);
-            for (int i = 0; i < super.size() - 1; i++) {
+            for (int i = 0; i < super.size() ; i++) {
                 if (current.data.getTriage() > appoint.getTriage()) {
 
                     prev.next = newNode;
@@ -64,7 +64,7 @@ public class PriorityQueue extends AppointmentLinkedList {
      *
      * @return Appointment
      * @throws NoSuchElementException if the queue is empty
- *
+     *
      */
     public Appointment remove() throws NoSuchElementException {
         if (super.isEmpty() == true) {
@@ -88,10 +88,10 @@ public class PriorityQueue extends AppointmentLinkedList {
      *
      * @return Appointment
      * @throws NoSuchElementException if queue is empty
- *
+     *
      */
     public Appointment Element() throws NoSuchElementException {
-        if (super.get(0) == null) {
+        if (super.size() == 0) {
             throw new NoSuchElementException();
         }
         return super.get(0);
