@@ -5,6 +5,8 @@
  */
 package com.mycompany.appointment;
 
+import java.time.LocalDate;
+
 /**
  *
  * @author user
@@ -170,6 +172,22 @@ public class AppointmentLinkedList {
             return current.data;
         }
 
+    }
+    
+    public boolean deleteAppointments(String firstName, String lastName, LocalDate dateOfBirth ) {
+        boolean state=false;
+        Node current =first;
+        Node prev =first;
+        for(int i=0; i<size; i++){
+            if(current.data.getFirstName().equalsIgnoreCase(firstName) && current.data.getLastName().equalsIgnoreCase(lastName) && current.data.getDateOfBirth().equals(dateOfBirth)){
+                prev.next=current.next;
+                size--;
+                state=true;
+            }
+            prev=current;
+            current=current.next;
+        }
+        return state;
     }
 
     protected static class Node {
