@@ -53,7 +53,15 @@ public class AppointmentLinkedList {
         size++;
         return true;
     }
-
+/**
+     * Adds an appointment to the a given position in linkedList
+     *
+     * @param appoint, takes in an Appointment as a parameter
+     * @param position, takes in an int 
+     * @return Boolean indicating the appointment was added
+     * @throws IndexOutOfBoundsException if less than 0 or greater than or equal to size
+     *
+     */
     public boolean add(int position, Appointment appoint) {
         Node newNode = new Node(appoint);
 
@@ -173,7 +181,16 @@ public class AppointmentLinkedList {
         }
 
     }
-    
+    /**
+     * Deletes all appointments int the linkedList whose details match the all
+     * Parameters
+     *
+     * @param firstName, a string
+     * @param lastName, a string
+     * @param dateOfBirth, a String
+     * @return Boolean 
+     *
+     */
     public boolean deleteAppointments(String firstName, String lastName, LocalDate dateOfBirth ) {
         boolean state=false;
         Node current =first;
