@@ -45,6 +45,10 @@ public class PatientsHashMap {
     public int size() {
         return size;
     }
+    
+    public LinkedList<Entry>[] getData() {
+        return data;
+    }
 
 //2. A method called hashFunction() that takes one parameter, the data representing the key to be used.    
 //the method should calculate the appropriate slot based on the key supplied (an int).
@@ -184,7 +188,7 @@ public class PatientsHashMap {
         if (data[slot] != null) {
 
             for (Entry entry : data[slot]) {
-                if (entry.getKey().equals(key)) {
+                if (entry.getKey().equalsIgnoreCase(key)) {
                     return true;
                 }
 
