@@ -21,10 +21,19 @@ public class Patient {
     private LocalDate dateJoint;
     private AppointmentLinkedList appointments;
 
-    
-    public Patient() {
-    }
-    
+    /**
+     * Constructor for Appointment class
+     *
+     * @param firstName, String
+     * @param secondName,String
+     * @param dateOfBirth,LocalDate
+     * @param dateJoint,LocalDate
+     *
+     * @param appointments,AppointmentLinkedList
+     * @throws DateTimeException, if dateOfBirth is after today or if dateJoint
+     * is before dateOfBirth before dateOfBirth
+     *
+     */
     public Patient(String firstName, String secondName, LocalDate dateOfBirth, LocalDate dateJoint, AppointmentLinkedList appointments) {
         if (dateOfBirth.compareTo(LocalDate.now()) > 0 || dateJoint.compareTo(dateOfBirth) < 0) {
             throw new DateTimeException("");
@@ -36,7 +45,9 @@ public class Patient {
         this.appointments = appointments;
     }
 
-    
+     public Patient(){
+         
+     }
 
     
 
@@ -132,7 +143,7 @@ public class Patient {
      * Gets the Patient's appointments
      *
      * @return AppointmentLinkedList
- *
+     *
      */
     public AppointmentLinkedList getAppointments() {
         return appointments;
@@ -142,7 +153,7 @@ public class Patient {
      * Set a patient's Appointments
      *
      * @param appointments
- *
+     *
      */
     public void setAppointments(AppointmentLinkedList appointments) {
         this.appointments = appointments;
@@ -165,7 +176,7 @@ public class Patient {
      * firstName,secondName, and dateJoint returns false otherwise
      *
      * @return Boolean
-*
+     *
      */
     @Override
     public boolean equals(Object obj) {
@@ -195,11 +206,11 @@ public class Patient {
      * Returns all a Patients details
      *
      * @return String
- *
+     *
      */
     @Override
     public String toString() {
-        return "Patient{" + "firstName=" + firstName + ", secondName=" + secondName + ", dateOfBirth=" + dateOfBirth + ", dateJoint=" + dateJoint + ", appointments=" + appointments + '}';
+        return "Patient{" + "firstName=" + firstName + ", secondName=" + secondName + ", dateOfBirth=" + dateOfBirth + ", dateJoint=" + dateJoint + '}';
     }
 
 }
