@@ -23,6 +23,20 @@ public class Appointment {
     private int triage;
     private String doctorsName;
 
+    /**
+     * Constructor for Appointment class
+     *
+     * @param FirstName, String
+     * @param lastName,String
+     * @param dateOfBirth,LocalDate
+     * @param issue,String
+     * @param date,LocalDate
+     * @param triage,int
+     * @param doctorsName,String
+     * @throws DateTimeException, if dateOfBirth is after today or if date is
+     * before dateOfBirth
+     *
+     */
     public Appointment(String FirstName, String lastName, LocalDate dateOfBirth, String issue, LocalDate date, int triage, String doctorsName) {
         if (dateOfBirth.compareTo(LocalDate.now()) > 0 || date.compareTo(dateOfBirth) < 0) {
             throw new DateTimeException("");
@@ -50,7 +64,7 @@ public class Appointment {
      * Sets lastName
      *
      * @param lastName
- *
+     *
      */
     public void setLastName(String lastName) {
         this.lastName = lastName;
@@ -92,7 +106,7 @@ public class Appointment {
      * Sets triage
      *
      * @param triage
- *
+     *
      */
     public void setTriage(int triage) {
         this.triage = triage;
@@ -140,8 +154,8 @@ public class Appointment {
     /**
      * Gets issue
      *
-     * @return String 
- *
+     * @return String
+     *
      */
     public String getIssue() {
         return issue;
@@ -151,7 +165,7 @@ public class Appointment {
      * Gets date
      *
      * @return LocalDate
- *
+     *
      */
     public LocalDate getDate() {
         return date;
@@ -161,7 +175,7 @@ public class Appointment {
      * Gets Patient's triage
      *
      * @return int
- *
+     *
      */
     public int getTriage() {
         return triage;
@@ -171,7 +185,7 @@ public class Appointment {
      * Gets Doctor's Name
      *
      * @return String
- *
+     *
      */
     public String getDoctorsName() {
         return doctorsName;
@@ -234,7 +248,7 @@ public class Appointment {
      * Returns an appointment details,
      *
      * @return String
- *
+     *
      */
     @Override
     public String toString() {
