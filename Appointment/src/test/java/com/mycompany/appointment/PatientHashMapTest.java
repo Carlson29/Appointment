@@ -5,6 +5,7 @@
 package com.mycompany.appointment;
 
 import java.time.LocalDate;
+import java.util.HashMap;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
@@ -19,22 +20,15 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 public class PatientHashMapTest {
 
-    private PatientsHashMap map;
+    HashMap<String, Patient> map = new HashMap<>();
    
     Patient patient1 = new Patient();
 
-    public PatientHashMapTest() {
-    }
+   
+/**
 
-    @BeforeEach
-    public void setUp() {
-        map = new PatientsHashMap();
-    }
-
-    @AfterEach
-    public void tearDown() {
-    }
-
+Unit tests for the size() method of the PatientsHashMap class.
+*/
     @Test
     public void testSize() {
        
@@ -48,6 +42,10 @@ public class PatientHashMapTest {
     
        
     }
+    /**
+
+Unit tests for the hashFunction() method of the PatientsHashMap class.
+*/
 @Test
 void testHashFunction() {
     PatientsHashMap map = new PatientsHashMap();
@@ -62,6 +60,10 @@ void testHashFunction() {
     // test for null key
     assertThrows(NullPointerException.class, () -> map.hashFunction(null));
 }
+
+/**
+ * unit tests for the put() method of the PatientHashMap class.
+ */
 @Test
 void testPut() {
 PatientsHashMap map = new PatientsHashMap();
@@ -85,6 +87,9 @@ assertEquals(patient2, map.get("jane"));
 
  assertThrows(NullPointerException.class, () -> map.hashFunction(null));
 }
+/**
+ * junit tests for the get() method of the hashmapclass.
+ */
 @Test
 void testGet() {
     PatientsHashMap map = new PatientsHashMap();
@@ -105,6 +110,9 @@ void testGet() {
     // Test with key not in map
     assertNull(map.get("jack"));
 }
+/**
+ * junit tests for the remove() method of the patientHashMap class.
+ */
 @Test
 void testRemove() {
     PatientsHashMap map = new PatientsHashMap();
@@ -128,6 +136,9 @@ void testRemove() {
     assertNull(removedPatient2);
     assertEquals(2, map.size());
 }
+/**
+ * junit test for the ContainsKey() method of the hashmap class.
+ */
 @Test
 void testContainsKey() {
     PatientsHashMap map = new PatientsHashMap();
@@ -169,7 +180,9 @@ void testContainsKey() {
     assertFalse(map.containsKey("jane"));
     assertFalse(map.containsKey("bob"));
 }
-
+/**
+ * junit test for the GetKeys method of the patientHashmap class.
+ */
 @Test
 void testGetKeys() {
     PatientsHashMap map = new PatientsHashMap();
@@ -187,6 +200,9 @@ void testGetKeys() {
     String[] emptyKeys = {};
     assertArrayEquals(emptyKeys, emptyMap.getKeys());
 }
+/**
+ * junit test method for the getValues() method of the patient hashmap class.
+ */
 @Test
 void testGetValues() {
     PatientsHashMap map = new PatientsHashMap();
@@ -201,5 +217,26 @@ void testGetValues() {
     Patient[] expectedValues = new Patient[] {patient1, patient2, patient3};
     assertArrayEquals(expectedValues, map.getValues());
 }
+/**
+ * junit test method for the 
+ */
+@Test
+public void testGrowMap() {
+    PatientsHashMap map = new PatientsHashMap(4);
+    map.put("John", new Patient());
+    map.put("Mary", new Patient());
+    map.put("David", new Patient());
+    map.put("Susan", new Patient());
+    map.put("Mike", new Patient());
+    map.put("Olivia", new Patient());
 
+   
+    
+    map.growMap();
+
+  assertTrue(map.size() == 6);
+   
+
+
+}
 }
