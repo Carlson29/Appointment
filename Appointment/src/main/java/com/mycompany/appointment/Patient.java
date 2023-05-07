@@ -21,6 +21,10 @@ public class Patient {
     private LocalDate dateJoint;
     private AppointmentLinkedList appointments;
 
+    
+    public Patient() {
+    }
+    
     public Patient(String firstName, String secondName, LocalDate dateOfBirth, LocalDate dateJoint, AppointmentLinkedList appointments) {
         if (dateOfBirth.compareTo(LocalDate.now()) > 0 || dateJoint.compareTo(dateOfBirth) < 0) {
             throw new DateTimeException("");
@@ -31,6 +35,10 @@ public class Patient {
         this.dateJoint = dateJoint;
         this.appointments = appointments;
     }
+
+    
+
+    
 
     /**
      * Gets a patient's firsName
