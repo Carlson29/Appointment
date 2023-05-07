@@ -56,6 +56,9 @@ public class PriorityQueue extends AppointmentLinkedList {
      *
      */
     public Appointment dequeue() {
+        if(isEmpty()==true){
+            return null;
+        }
         return super.remove(0);
     }
 
@@ -74,12 +77,15 @@ public class PriorityQueue extends AppointmentLinkedList {
     }
 
     /**
-     * Gets the first appointment in the queue
+     * Gets the first appointment in the queue or null if Empty
      *
      * @return Appointment
      *
      */
     public Appointment peek() {
+         if(isEmpty()==true){
+            return null;
+        }
         return super.get(0);
     }
 
@@ -106,32 +112,76 @@ public class PriorityQueue extends AppointmentLinkedList {
     public int count() {
         return super.size();
     }
-
+   
+     /**
+     * Method is blocked will always throw UnsupportedOperationException
+     *
+     * @param position, an int
+     * @throws UnsupportedOperationException
+     *
+     */
     @Override
     public Appointment remove(int position) {
         throw new UnsupportedOperationException();
     }
-
+    /**
+     * Method is blocked will always throw UnsupportedOperationException
+     *
+     * @param position an int
+     * @param appoint, an Appointment
+     * @return Boolean
+     *
+     * @throws UnsupportedOperationException
+     *
+     */
     @Override
     public boolean add(int position, Appointment appoint) {
         throw new UnsupportedOperationException();
     }
-
+    /**
+     * Method is blocked will always throw UnsupportedOperationException
+     *
+     * @param appoint, an Appointment
+     * @return Boolean
+     * @throws UnsupportedOperationException
+     *
+     */
     @Override
     public boolean add(Appointment appoint) {
         throw new UnsupportedOperationException();
     }
-
+   /**
+     * Method is blocked will always throw UnsupportedOperationException
+     *
+     * @return int
+     * @throws UnsupportedOperationException
+     *
+     */
     @Override
     public int size() {
         throw new UnsupportedOperationException();
     }
-
+     /**
+     * Method is blocked will always throw UnsupportedOperationException
+     *
+     * @return Appointment
+     * @param position, an int
+     * @throws UnsupportedOperationException
+     *
+     */
     @Override
     public Appointment get(int position) {
         throw new UnsupportedOperationException();
     }
-
+ /**
+     * Method is blocked will always throw UnsupportedOperationException
+     *
+     * @param appoint, an Appointment
+     * @return int
+     * @throws UnsupportedOperationException
+     *
+     */
+    @Override
     public int indexOf(Appointment appoint) {
         throw new UnsupportedOperationException();
     }
