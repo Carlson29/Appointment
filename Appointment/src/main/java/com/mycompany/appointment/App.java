@@ -4,13 +4,16 @@
  */
 package com.mycompany.appointment;
 
+import com.mycompany.appointment.AppointmentLinkedList.Node;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -22,8 +25,9 @@ public class App {
     public static void main(String[] args) throws FileNotFoundException {
         Scanner pk = new Scanner(System.in);
         PatientsHashMap patients = new PatientsHashMap();
-
+        PriorityQueue queue = new PriorityQueue();
         AppointmentLinkedList appointments = new AppointmentLinkedList();
+
         try {
             File appoints = new File("appointments.txt");
             if (appoints.exists()) {
@@ -37,11 +41,13 @@ public class App {
 
                             Appointment line = new Appointment(ap[0], ap[1], d3, ap[5], d4, Integer.parseInt(ap[9]), ap[10]);
                             appointments.add(line);
+
                         } catch (NumberFormatException | DateTimeException ex) {
 
                         }
                     }
                 }
+                System.out.println("Appointments have been read from appointments.txt ");
             } else {
                 throw new FileNotFoundException();
             }
@@ -85,6 +91,7 @@ public class App {
                     }
 
                 }
+                System.out.println("Patients have been read from patients.txt");
             } else {
                 throw new FileNotFoundException();
             }
@@ -111,21 +118,114 @@ public class App {
 
                 }
                 if (choice == 1) {
-                     Patient p = patientDetails();
-                     String key = generateKey(p.getFirstName(), p.getSecondName(), p.getDateOfBirth());
-                     if (patients.containsKey(key) == true) {
-                         patients.remove(key);
-                         appointments.deleteAppointments(p.getFirstName(), p.getSecondName(), p.getDateOfBirth());
-                     }
-                     
+                    Patient p = patientDetails();
+                    String key = generateKey(p.getFirstName(), p.getSecondName(), p.getDateOfBirth());
+                    if (patients.containsKey(key) == true) {
+                        patients.remove(key);
+                        appointments.deleteAppointments(p.getFirstName(), p.getSecondName(), p.getDateOfBirth());
+                        System.out.println("Patient deleted");
+                    }
+
                 }
                 if (choice == 2) {
-                    Patient [] patient= patients.getValues();
-                    for(int i=0; i<patient.length; i++){
+                    Patient[] patient = patients.getValues();
+                    for (int i = 0; i < patient.length; i++) {
                         System.out.println(patient[i]);
                     }
                 }
+                if (choice == 3) {
+                    System.out.println("Enter Patient FirstName");
+                    String firstName = pk.nextLine();
+                    pk.nextLine();
+                    System.out.println("Enter Patient secondName");
+                    String secondName = pk.nextLine();
+                    System.out.println("Enter year of birth");
+                    int year = pk.nextInt();
+                    System.out.println("Enter day of birth(number)");
+                    int day = pk.nextInt();
+                    System.out.println("Enter month of birth(number)");
+                    int month = pk.nextInt();
+
+                    LocalDate dateOfBirth = LocalDate.of(year, month, day);
+                    String key = generateKey(firstName, secondName, dateOfBirth);
+                    if (patients.containsKey(key) == true) {
+                        System.out.println("Enter Appointment year ");
+                        int appointmentYear = pk.nextInt();
+                        System.out.println("Enter Appointment day (number)");
+                        int appointmentDay = pk.nextInt();
+                        System.out.println("Enter Appointment month (number)");
+                        int appointmentMonth = pk.nextInt();
+                        LocalDate appointmentDate = LocalDate.of(appointmentYear, appointmentMonth, appointmentDay);
+                        pk.nextLine();
+                        System.out.println("Enter issue");
+                        String issue = pk.nextLine();
+                        System.out.println("Enter your Doctors Name");
+                        String doctor = pk.nextLine();
+                        Random rg = new Random();
+                        int triage = rg.nextInt(6);
+                        Appointment ap1 = new Appointment(firstName, secondName, dateOfBirth, issue, appointmentDate, triage, doctor);
+
+                        Patient p1 = patients.get(key);
+                        p1.getAppointments().add(ap1);
+                        queue.enqueue(ap1);
+                        System.out.println("Appointment added ");
+
+                    } else {
+                        System.out.println("Sorry No patient has does deatils in our System");
+                    }
+
+                }
+
+                if (choice == 4) {
+                    Appointment remove = queue.dequeue();
+                    if (remove != null) {
+                        System.out.println("Next appointment is " + remove.toString());
+                    } else {
+                        System.out.println("Sorry no patients available in the Queue at the moment");
+                    }
+
+                }
+                if (choice == 5) {
+                    File f = new File("Patients2.txt");
+                    PrintStream output = new PrintStream(f);
+                    Patient[] vals = patients.getValues();
+                    for (int i = 0; i < vals.length; i++) {
+                        output.println(vals[i].toString());
+                        if (vals[i].getAppointments().size() > 0) {
+                            output.println("Appointments ");
+                            Node current = vals[i].getAppointments().first;
+                            for (int j = 0; j < vals[i].getAppointments().size; j++) {
+
+                                if (current.data != null) {
+                                    output.println(current.data.toString());
+                                }
+                                current = current.next;
+
+                            }
+                        }
+                        output.println();
+                    }
+                    output.close();
+
+                    File f1 = new File("Appointment2.txt");
+                    PrintStream output1 = new PrintStream(f1);
+                    if (appointments != null) {
+                        Node current = appointments.first;
+                        for (int i = 0; i < appointments.size(); i++) {
+                            output1.println(current.data.toString());
+                            output.println();
+                            current = current.next;
+                        }
+                    }
+                    output1.close();
+                    System.out.println("Patients have been written to Patients2.txt ");
+                    System.out.println("Appointments have been written to Appointment2.txt");
+                    System.out.println("********Exit********");
+                    state = true;
+                }
+
             } catch (InputMismatchException ex) {
+                System.out.println("Invalid input Entered");
 
             } catch (DateTimeException ex) {
                 System.out.println("You entered an invalid date");
