@@ -144,7 +144,7 @@ public class PriorityQueueTest {
     }
 
     /**
-     * Test of dequeue method, of class PriorityQueue.
+     * Test of dequeue method, of class PriorityQueue. When is not empty
      */
     @Test
     public void testDequeue() {
@@ -159,6 +159,19 @@ public class PriorityQueueTest {
         //  Appointment expResult = a1;
         Appointment result = instance.dequeue();
         assertEquals(a1, result);
+
+    }
+
+    /**
+     * Test of dequeue method, of class PriorityQueue. When is empty
+     */
+    @Test
+    public void testDequeue_whenEmpty() {
+        System.out.println("dequeue");
+        PriorityQueue instance = new PriorityQueue();
+        //  Appointment expResult = a1;
+        Appointment result = instance.dequeue();
+        assertEquals(null, result);
 
     }
 
@@ -211,6 +224,19 @@ public class PriorityQueueTest {
         Appointment result = instance.peek();
         assertEquals(expResult, result);
         assertEquals(instance.count(), 2);
+
+    }
+
+    /**
+     * Test of peek method, of class PriorityQueue. when empty
+     */
+    @Test
+    public void testPeek2() {
+        System.out.println("peek");
+        PriorityQueue instance = new PriorityQueue();
+
+        Appointment result = instance.peek();
+        assertEquals(null, result);
 
     }
 
