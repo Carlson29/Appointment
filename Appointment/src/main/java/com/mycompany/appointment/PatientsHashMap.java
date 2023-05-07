@@ -29,6 +29,26 @@ public class PatientsHashMap {
     private LinkedList<Entry>[] data;
     private static final int DEFAULT_CAPACITY = 103;
 
+    public int getSize() {
+        return size;
+    }
+
+    public LinkedList<Entry>[] getData() {
+        return data;
+    }
+
+    public static int getDEFAULT_CAPACITY() {
+        return DEFAULT_CAPACITY;
+    }
+
+    public void setSize(int size) {
+        this.size = size;
+    }
+
+    public void setData(LinkedList<Entry>[] data) {
+        this.data = data;
+    }
+
     public PatientsHashMap() {
         data = new LinkedList[DEFAULT_CAPACITY];
     }
@@ -40,14 +60,24 @@ public class PatientsHashMap {
         data = new LinkedList[capacity];
     }
 
-//    1. A method called size() that takes no parameters & returns the number of Appointment currently
-    //stored in your Map.
+    /**
+     *
+     * Returns the number of elements in the hashmap
+     *
+     * @return the number of elements in the hashmap
+     */
     public int size() {
         return size;
     }
 
-//2. A method called hashFunction() that takes one parameter, the data representing the key to be used.    
-//the method should calculate the appropriate slot based on the key supplied (an int).
+    /**
+     *
+     * Returns the hash code value for the given key which determines the slot
+     * in the hash table where the key-value pair will be stored
+     *
+     * @param key the key for which to calculate the hash code
+     * @return the hash code value for the given key
+     */
     public int hashFunction(String key) {
         int slot = key.hashCode();
         slot = Math.abs(slot);
@@ -56,18 +86,19 @@ public class PatientsHashMap {
 
     }
 
-//3. A method called put() that takes two parameters, the data representing the key of the new entry and a Patient
-//representing the value of the new entry. The method should add the new pairing to the map in an appropriate
-//location. If the key is already present, the method should update the associated value and return the old
-//version. If the key is not already present in the map, the situation should be handled appropriately.
-//     String put parameters key and patient, patient represents value
-//	int slot to add equals hashFunction key
-//	ifdata [slot] is empty
-//		create new entry with key and patient
-//		increase size
-//	if the key is already present
-//		update data[slot]  with patient  
-//		and return that as the old value
+    /**
+     *
+     * places the parameter into the hashmap
+     *
+     * @param key the key with which to associate the specified value
+     *
+     * @param value the value to be associated with the specified key
+     *
+     * @return the previous value associated with the specified key, or null if
+     * there was no mapping for the key
+     *
+     * @throws IllegalArgumentException if either the key or value is null
+     */
     public Patient put(String key, Patient value) {
         int slot = hashFunction(key);
         if (key == null || value == null) {
@@ -97,18 +128,12 @@ public class PatientsHashMap {
         }
     }
 
-//        4. A method called get() that takes a single parameter, the key mapping to the value to be retrieved.
-//The method should return a Patient - the value associated with the supplied key. If no such key is found in the
-//map, an appropriate value should be returned to indicate this
-//	
-//	
-//	
-//get() paremeter is key
-//	slot is hashcode of key
-//	if the slot is not empty 
-//		return the value of the key in that slot
-//	if the slot is empty
-//	return nothing
+    /**
+     * returns the patient given the key
+     *
+     * @param key
+     * @return the patient given the key.
+     */
     public Patient get(String key) {
         int slot = hashFunction(key);
         if (data[slot] != null) {
@@ -123,23 +148,21 @@ public class PatientsHashMap {
         }
     }
 
-//   5. A method called remove() that takes one parameter – the key of the pairing to be removed.
-//The method should return the value that has been removed. If no such key is found in the map, an appropriate
-//value should be returned to indicate this.
-//
-//remove () parameter is key
-//	int slot that is the hashcode of key
-//		if the slot is not empty
-//			return the value then remove
-//		if the slot is empty
-//			return null
+    /**
+     * removes the patient given the key in the hashmap
+     *
+     * @param key
+     * @return the value of the removed entry, or null if no entry with the
+     * given key is found
+     * @throws NullPointerException if the key is null
+     */
     public Patient remove(String key) {
         Patient remove;
         int slot = hashFunction(key);
         if (data[slot] != null) {
 
             Entry current = data[slot].getFirst();
-            for (int i = 0; i < data[slot].size()-1; i++) {
+            for (int i = 0; i < data[slot].size() - 1; i++) {
 
                 if (current.getKey().equals(key)) {
 
@@ -150,13 +173,13 @@ public class PatientsHashMap {
                 }
                 current = data[slot].get(i + 1);
             }
-             if (current.getKey().equals(key)) {
+            if (current.getKey().equals(key)) {
 
-                    remove = data[slot].remove(data[slot].size()-1).value;
+                remove = data[slot].remove(data[slot].size() - 1).value;
 
-                    size--;
-                    return remove;
-                }
+                size--;
+                return remove;
+            }
 
             return null;
 
@@ -165,20 +188,13 @@ public class PatientsHashMap {
         }
 
     }
-//    6.
-//A method called containsKey() that takes one parameter – the key whose presence is being confirmed. This
-//should return a boolean indicating whether or not this key currently exists within the map.
-//	
-//boolean contains key() takes in key as paramter
-//	slot equals the hashfucntion of the key	
-//	current equals the slot in the map
-//		while the current is not empty
-//			if the key of current is equals to the key	
-//				return true
-//			if not 	
-//				get next current
-//				return false
 
+    /**
+     * checks to see if map contains the given key
+     *
+     * @param key
+     * @return true if it does false if not
+     */
     public boolean containsKey(String key) {
         int slot = hashFunction(key);
         if (data[slot] != null) {
@@ -196,20 +212,12 @@ public class PatientsHashMap {
         }
 
     }
-//    7. A method called getKeys() that takes no parameters.
-//This method should return an array containing all of the keys currently stored within the map
-//
-//String []getkeys()
-//	new array keys
-//	slot equals hashfunction of key
-//	for slot in map 	
-//	current = slot
-//		while current is not null
-//	keys add (current.key)
-//	current equals current.next
-//return keys
-//
 
+    /**
+     * gets all the keys in the map
+     *
+     * @return all the keys in the map
+     */
     public String[] getKeys() {
 
         String[] keys = new String[size];
@@ -225,16 +233,13 @@ public class PatientsHashMap {
         return keys;
 
     }
-//8.
-//String[] getvalues()
-//	values equals new array
-//	for slot in map		
-//	current equals slot
-//		while current is not null
-//	values.add (current.value)
-//	curreent = next current
-//return the values
-       public Patient[] getValues() {
+
+    /**
+     * gets all the values from the hashmap
+     *
+     * @return all the values from the hashmap
+     */
+    public Patient[] getValues() {
 
         Patient[] values = new Patient[size];
         int count = 0;
@@ -250,6 +255,32 @@ public class PatientsHashMap {
 
     }
 
+    /**
+     * Increases the capacity of the hash table by doubling its size if the load
+     * factor exceeds 0.75. This method rehashes all the key-value pairs in the
+     * existing table and redistributes them in the new table using a new hash
+     * function.
+     */
+    public void grow() {
+        int currentCapacity = data.length;
+        if ((size * 1.0) / currentCapacity >= 0.75) {
+            int newCapacity = currentCapacity * 2;
+            LinkedList<Entry>[] newData = new LinkedList[newCapacity];
+            for (int i = 0; i < currentCapacity; i++) {
+                if (data[i] != null) {
+                    for (Entry e : data[i]) {
+                        int newSlot = hashFunction(e.getKey());
+                        if (newData[newSlot] == null) {
+                            newData[newSlot] = new LinkedList<>();
+                        }
+                        newData[newSlot].add(e);
+                    }
+                }
+            }
+            data = newData;
+        }
+    }
+
     private static class Entry {
 
         private final String key;
@@ -260,23 +291,49 @@ public class PatientsHashMap {
             this.value = value;
         }
 
+        /**
+         *
+         * Returns the key associated with this Entry object.
+         *
+         * @return the key associated with this Entry object
+         */
         public String getKey() {
             return key;
         }
 
+        /**
+         *
+         * Returns the value associated with this Entry object.
+         *
+         * @return the value associated with this Entry object
+         */
         public Patient getValue() {
             return value;
         }
 
+        /**
+         *
+         * Sets the value associated with this Entry object to the specified
+         * value.
+         *
+         * @param value the new value to associate with this Entry object
+         */
         public void setValue(Patient value) {
             this.value = value;
         }
 
+        /**
+         *
+         * Replaces the value associated with this Entry object with the
+         * specified new value and returns the old value.
+         *
+         * @param newValue the new value to associate with this Entry object
+         * @return the old value previously associated with this Entry object
+         */
         public Patient updateValue(Patient newValue) {
             Patient oldValue = value;
             this.value = newValue;
             return oldValue;
-
         }
     }
 }
