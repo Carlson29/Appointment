@@ -69,6 +69,10 @@ public class PatientsHashMap {
     public int size() {
         return size;
     }
+    
+    public LinkedList<Entry>[] getData() {
+        return data;
+    }
 
     /**
      *
@@ -200,7 +204,7 @@ public class PatientsHashMap {
         if (data[slot] != null) {
 
             for (Entry entry : data[slot]) {
-                if (entry.getKey().equals(key)) {
+                if (entry.getKey().equalsIgnoreCase(key)) {
                     return true;
                 }
 
