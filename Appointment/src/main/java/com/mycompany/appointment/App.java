@@ -131,6 +131,18 @@ public class App {
                     Patient[] patient = patients.getValues();
                     for (int i = 0; i < patient.length; i++) {
                         System.out.println(patient[i]);
+                         if (patient[i].getAppointments().size() > 0) {
+                           System.out.println("Appointments ");
+                            Node current = patient[i].getAppointments().first;
+                            for (int j = 0; j < patient[i].getAppointments().size; j++) {
+
+                                if (current.data != null) {
+                                    System.out.println(current.data.toString());
+                                }
+                                current = current.next;
+
+                            }
+                        }
                     }
                 }
                 if (choice == 3) {
