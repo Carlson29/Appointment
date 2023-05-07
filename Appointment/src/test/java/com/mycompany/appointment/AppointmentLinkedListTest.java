@@ -5,6 +5,7 @@
  */
 package com.mycompany.appointment;
 
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.time.Month;
 import org.junit.jupiter.api.AfterAll;
@@ -18,6 +19,62 @@ import static org.junit.jupiter.api.Assertions.*;
 public class AppointmentLinkedListTest {
 
     public AppointmentLinkedListTest() {
+    }
+
+    /**
+     * Test of Patient constructor when dateOfBith is after current date
+     */
+    @Test
+    public void testPatientConstructor() {
+        System.out.println("constructor");
+        LocalDate d1 = LocalDate.of(2025, Month.MAY, 1);
+        LocalDate d2 = LocalDate.of(2023, Month.MAY, 1);
+        AppointmentLinkedList w = new AppointmentLinkedList();
+        assertThrows(DateTimeException.class, () -> {
+            Patient a1 = new Patient("Joshua", "Gerry", d1, d2, w);;
+        });
+    }
+
+    /**
+     * Test of Patient constructor when dateJoint is before dateOfBirth
+     */
+    @Test
+    public void testPatientConstructor2() {
+        System.out.println("constructor");
+        LocalDate d1 = LocalDate.of(2020, Month.MAY, 1);
+        LocalDate d2 = LocalDate.of(2019, Month.MAY, 1);
+        AppointmentLinkedList w = new AppointmentLinkedList();
+        assertThrows(DateTimeException.class, () -> {
+            Patient a1 = new Patient("Joshua", "Gerry", d1, d2, w);;
+        });
+    }
+
+    /**
+     * Test of Appointment constructor when dateOfBith is after current date
+     */
+    @Test
+    public void testAppointmentConstructor() {
+        System.out.println("constructor");
+        AppointmentLinkedList instance = new AppointmentLinkedList();
+        LocalDate d1 = LocalDate.of(2025, Month.MAY, 1);
+        LocalDate d2 = LocalDate.of(2023, Month.MAY, 1);
+        assertThrows(DateTimeException.class, () -> {
+            Appointment a1 = new Appointment("Joshua", "Gerry", d1, "fever", d2, 1, "paul");;
+        });
+    }
+
+    /**
+     * Test of Appointment constructor when date is before dateOfBirth
+     */
+    @Test
+    public void testAppointmentConstructor2() {
+        System.out.println("constructor");
+        AppointmentLinkedList instance = new AppointmentLinkedList();
+        LocalDate d1 = LocalDate.of(2022, Month.MAY, 1);
+        LocalDate d2 = LocalDate.of(2021, Month.MAY, 1);
+        assertThrows(DateTimeException.class, () -> {
+            Appointment a1 = new Appointment("Joshua", "Gerry", d1, "fever", d2, 1, "paul");;
+        });
     }
 
     /**
@@ -461,6 +518,43 @@ public class AppointmentLinkedListTest {
         instance.add(a3);
         Appointment result = instance.remove(instance.size() - 1);
         assertEquals(a3, result);
+
+    }
+
+    /**
+     * Test of DeleteAppointments when is not empty
+     */
+    @Test
+    public void testDeleteAppointments() {
+        System.out.println("testDeleteAppointments");
+        AppointmentLinkedList instance = new AppointmentLinkedList();
+        LocalDate d1 = LocalDate.of(2005, Month.MAY, 1);
+        LocalDate d2 = LocalDate.of(2023, Month.MAY, 1);
+        Appointment a1 = new Appointment("Joshua", "Gerry", d1, "fever", d2, 1, "paul");
+        Appointment a2 = new Appointment("Jacob", "lena", d1, "cough", d2, 1, "paul");
+        Appointment a3 = new Appointment("Walters", "joe", d1, "fever", d2, 1, "paul");
+        instance.add(a1);
+        instance.add(a2);
+        instance.add(a3);
+        boolean result = instance.deleteAppointments(a1.getFirstName(), a1.getLastName(), a1.getDateOfBirth());
+
+        assertEquals(2, instance.size());
+        assertEquals(true, result);
+
+    }
+
+    /**
+     * Test of DeleteAppointments when is empty
+     */
+    @Test
+    public void testDeleteAppointments2() {
+        System.out.println("testDeleteAppointments");
+        AppointmentLinkedList instance = new AppointmentLinkedList();
+        LocalDate d1 = LocalDate.of(2005, Month.MAY, 1);
+        boolean result = instance.deleteAppointments("carlson", "marco", d1);
+
+        assertEquals(0, instance.size());
+        assertEquals(false, result);
 
     }
 
