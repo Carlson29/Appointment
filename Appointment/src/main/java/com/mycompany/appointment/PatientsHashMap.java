@@ -69,10 +69,6 @@ public class PatientsHashMap {
     public int size() {
         return size;
     }
-    
-    public LinkedList<Entry>[] getData() {
-        return data;
-    }
 
     /**
      *
@@ -260,29 +256,36 @@ public class PatientsHashMap {
     }
 
     /**
-     * Increases the capacity of the hash table by doubling its size if the load
-     * factor exceeds 0.75. This method rehashes all the key-value pairs in the
-     * existing table and redistributes them in the new table using a new hash
-     * function.
+     *
+     * Increases the capacity of the hashmap by doubling the size of the array
+     * and rehashing all entries to their new positions in the new array. The
+     * method creates a new array with double the size of the original array,
+     * and iterates through each bucket in the original array to rehash each
+     * entry into the new array. Each entry is added to the corresponding bucket
+     * in the new array based on the new index value determined by the upated
+     * hash function
      */
-    public void grow() {
-        int currentCapacity = data.length;
-        if ((size * 1.0) / currentCapacity >= 0.75) {
-            int newCapacity = currentCapacity * 2;
-            LinkedList<Entry>[] newData = new LinkedList[newCapacity];
-            for (int i = 0; i < currentCapacity; i++) {
-                if (data[i] != null) {
-                    for (Entry e : data[i]) {
-                        int newSlot = hashFunction(e.getKey());
-                        if (newData[newSlot] == null) {
-                            newData[newSlot] = new LinkedList<>();
-                        }
-                        newData[newSlot].add(e);
+    public void growMap() {
+
+        int newCapacity = data.length * 2;
+        LinkedList<Entry>[] newData = new LinkedList[newCapacity];
+
+        for (LinkedList<Entry> bucket : data) {
+            if (bucket != null) {
+                for (Entry entry : bucket) {
+                    String key = entry.getKey();
+                    int index = hashFunction(key) % newCapacity;
+                    LinkedList<Entry> newBucket = newData[index];
+                    if (newBucket == null) {
+                        newBucket = new LinkedList<>();
+                        newData[index] = newBucket;
                     }
+                    newBucket.add(entry);
                 }
             }
-            data = newData;
         }
+
+        data = newData;
     }
 
     private static class Entry {
