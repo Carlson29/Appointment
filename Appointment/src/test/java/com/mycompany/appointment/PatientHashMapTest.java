@@ -218,7 +218,7 @@ void testGetValues() {
     assertArrayEquals(expectedValues, map.getValues());
 }
 /**
- * junit test method for the 
+ * junit test method for the growmap class
  */
 @Test
 public void testGrowMap() {
