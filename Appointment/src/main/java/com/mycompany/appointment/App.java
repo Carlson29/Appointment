@@ -99,7 +99,7 @@ public class App {
             System.out.println("Sorry Patients file not found");
         }
 
-        String[] options = {"0.Add a new patient ", "1.Delete a Patient ", "2.Display All patients ", "3. Create an Appointment for a specific Patient", "4. Next Patient ", "5. Exit"};
+        String[] options = {"0. Add a new patient ", "1. Delete a Patient ", "2. Display All patients ", "3. Create an Appointment for a specific Patient", "4. Next Patient ", "5. Exit"};
         Boolean state = false;
         while (state == false) {
             int choice = Menu(options);
